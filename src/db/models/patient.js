@@ -16,4 +16,4 @@ const Patient = db.define('patient', {
   },
 });
 
-module.exports = Patient;
+export default Patient;

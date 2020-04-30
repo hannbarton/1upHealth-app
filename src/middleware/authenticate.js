@@ -4,7 +4,7 @@ const request = '../utils/request.js';
 
 const authenticate = async (req, res, cb) => {
   try {
-    // assuming user exists, generate code for this user
+    // assuming user exists, generate auth-code for this user
     const response = await request('POST', 'user-management/v1', 'auth-code',
       stringify(
         {
@@ -13,7 +13,7 @@ const authenticate = async (req, res, cb) => {
           client_secret: process.env.CLIENT_SECRET,
         },
       ));
-    // exchange code for access token
+    // exchange auth-code for access token
     const { code } = response;
     const { access_token: accessToken } = await request('POST', 'fhir/oauth', 'token',
       stringify(
@@ -29,7 +29,7 @@ const authenticate = async (req, res, cb) => {
     return cb();
   } catch (err) {
     console.log(err);
-    return res.status(500).send({ error: 'Internal Server Error' });
+    return res.status(400).send({ error: 'Authentication was not successful' });
   }
 };
 
