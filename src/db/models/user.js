@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const db = require('./index.js');
 
 const User = db.define('user', {
-  email: {
+  appUserId: {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false,

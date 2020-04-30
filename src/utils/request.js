@@ -2,7 +2,7 @@ const rp = require('request-promise');
 const _ = require('lodash');
 
 
-const request = (method, resource, path, qs, options = {}) => {
+const request = async (method, resource, path, qs, options = {}) => {
   let uri = `${process.env.BASE_URL}/${resource}`;
 
   if (path.length) {
@@ -14,7 +14,7 @@ const request = (method, resource, path, qs, options = {}) => {
   };
 
   if (qs.length) {
-    uri += `query=?${qs}`;
+    uri += `?${qs}`;
   }
 
   const opts = _.merge({
@@ -33,4 +33,4 @@ const request = (method, resource, path, qs, options = {}) => {
     });
 };
 
-module.exports = request;
+export default request;
