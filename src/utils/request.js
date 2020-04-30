@@ -2,11 +2,20 @@ const rp = require('request-promise');
 const _ = require('lodash');
 
 
-const request = (method, resource, options = {}) => {
-  const uri = `${process.env.BASE_URL}/${resource}`;
+const request = (method, resource, path, qs, options = {}) => {
+  let uri = `${process.env.BASE_URL}/${resource}`;
+
+  if (path.length) {
+    uri += `/${path}`;
+  }
+
   const headers = {
     Authorization: `Bearer ${process.env.ACCESS_BEARER_TOKEN}`,
   };
+
+  if (qs.length) {
+    uri += `query=?${qs}`;
+  }
 
   const opts = _.merge({
     method,
