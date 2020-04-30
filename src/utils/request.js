@@ -26,7 +26,7 @@ const request = (method, resource, path, qs, options = {}) => {
 
   return rp(opts)
     .then((res) => {
-      console.log(res);
+      console.log(JSON.parse(res));
     })
     .catch((err) => {
       console.log(`There was an error making the api request: ${err}`, method, uri, options);
