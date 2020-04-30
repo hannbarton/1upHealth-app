@@ -13,9 +13,6 @@ const authenticate = async (req, res, cb) => {
           client_secret: process.env.CLIENT_SECRET,
         },
       ));
-    if (!response.success) {
-      res.status(401).send(response.error);
-    }
     // exchange code for access token
     const { code } = response;
     const { access_token: accessToken } = await request('POST', 'fhir/oauth', 'token',
