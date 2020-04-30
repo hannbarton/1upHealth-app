@@ -2,7 +2,7 @@ const rp = require('request-promise');
 const _ = require('lodash');
 
 
-const request = (method, resource, options = '') => {
+const request = (method, resource, options = {}) => {
   const uri = `${process.env.BASE_URL}/${resource}`;
   const headers = {
     Authorization: `Bearer ${process.env.ACCESS_BEARER_TOKEN}`,
