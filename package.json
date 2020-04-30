@@ -23,6 +23,12 @@
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
     "css-loader": "^2.1.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
     "nodemon": "^1.19.4",
     "style-loader": "^0.23.1",
     "webpack": "^4.43.0",
@@ -31,8 +37,10 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "lodash": "^4.17.15",
     "morgan": "^1.10.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "request-promise": "^4.2.5"
   }
 }
