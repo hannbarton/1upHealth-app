@@ -15,10 +15,10 @@ const User = db.define('user', {
     type: Sequelize.STRING,
   },
   accessBearerToken: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
   },
   connectSystemId: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
   },
 });
 
