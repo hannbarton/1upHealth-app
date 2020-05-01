@@ -3,7 +3,7 @@ const express = require('express');
 
 const app = express();
 const morgan = require('morgan');
-const db = require('./db');
+// const db = require('./db');
 
 const PORT = process.env.PORT || 3000;
 // const authenticate = require('./middleware/authenticate');
@@ -16,7 +16,6 @@ const createApp = () => {
   // body parsing middleware
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-
 
   app.use(express.static(path.join(__dirname, '..', 'public')));
 
@@ -34,7 +33,7 @@ const createApp = () => {
     }
   });
 
-  app.get('/', (req, res, next) => {
+  app.get('/login', (req, res, next) => {
     try {
       res.send('the first login page is working');
     } catch (err) {
@@ -51,14 +50,14 @@ const createApp = () => {
   });
 };
 
-const syncDb = () => db.sync();
+// const syncDb = () => db.sync();
 
 const startListening = () => {
   app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`));
 };
 
 async function startApp() {
-  await syncDb();
+  // await syncDb();
   createApp();
   startListening();
 }
