@@ -1,39 +1,39 @@
-const path = require("path");
+const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-    entry: path.join(__dirname, "app.js"),
-    module: {
-        rules: [
-          {
-            test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            use: {
-              loader: "babel-loader"
-            }
-          },
-          {
-            test: /\.css$/,
-            use: [
-              'style-loader',
-              'css-loader',
-            ]
-          }
-        ]
-    },
-    resolve: {
-        extensions: ['*', '.js', '.jsx']
-    },
-    output: {
-        path: path.join(__dirname, "public"),
-        filename: "bundle.js",
-        publicPath: "/"
-    },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin()
+  entry: path.join(__dirname, 'app.js'),
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+      },
     ],
-    devServer: {
-        hot: true,
-        historyApiFallback: true
-    }
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
+  },
+  output: {
+    path: path.join(__dirname, 'public'),
+    filename: 'bundle.js',
+    publicPath: '/',
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+  ],
+  devServer: {
+    hot: true,
+    historyApiFallback: true,
+  },
 };
