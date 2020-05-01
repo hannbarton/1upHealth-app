@@ -1,8 +1,8 @@
-import { stringify } from 'querystring';
+const { stringify } = require('querystring');
 
 const request = '../utils/request.js';
 
-const authenticate = async (req, res, cb) => {
+const authenticate = async (req, res, next) => {
   try {
     // assuming user exists, generate auth-code for this user
     const response = await request('POST', 'user-management/v1', 'auth-code',
@@ -26,11 +26,11 @@ const authenticate = async (req, res, cb) => {
       ));
     // save access token in the database
     console.log(accessToken);
-    return cb();
+    return next();
   } catch (err) {
     console.log(err);
     return res.status(400).send({ error: 'Authentication was not successful' });
   }
 };
 
-export default authenticate;
+module.exports = authenticate;

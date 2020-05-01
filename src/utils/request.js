@@ -33,4 +33,4 @@ const request = async (method, resource, path, qs, options = {}) => {
     });
 };
 
-export default request;
+module.exports = request;

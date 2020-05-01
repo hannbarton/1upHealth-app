@@ -50,4 +50,4 @@ const setSaltAndPassword = (user) => {
 User.beforeCreate(setSaltAndPassword);
 User.beforeUpdate(setSaltAndPassword);
 
-export default User;
+module.exports = User;
