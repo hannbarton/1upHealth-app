@@ -35,8 +35,10 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "connect-session-sequelize": "^6.1.1",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "lodash": "^4.17.15",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",

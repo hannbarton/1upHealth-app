@@ -1,12 +1,16 @@
 const path = require('path');
 const express = require('express');
+const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
 const morgan = require('morgan');
 const db = require('./db');
-// const { User, Patient } = require('./db/models');
+
+const sessionStore = new SequelizeStore({ db });
+const { User } = require('./db/models');
 
 const PORT = process.env.PORT || 3000;
 const authenticate = require('./middleware/authenticate');
@@ -100,6 +104,7 @@ const createApp = () => {
   app.use(express.urlencoded({ extended: true }));
 
   app.get('/', authenticate);
+
   app.get('/login', (req, res, next) => {
     try {
       res.send(req.body);
@@ -108,7 +113,24 @@ const createApp = () => {
     }
   });
 
-  
+  app.post('/signup', async (req, res, next) => {
+    try {
+      const user = await User.create(req.body);
+      req.login(user, (err) => (err ? next(err) : res.json(user)));
+    } catch (err) {
+      if (err.name === 'Unique Constraint Error') {
+        res.status(401).send('Username already exists');
+      } else {
+        next(err);
+      }
+    }
+  });
+
+  app.post('/logout', (req, res) => {
+    req.logout();
+    req.session.destroy();
+    res.redirect('/');
+  });
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -142,6 +164,7 @@ const startListening = () => {
 };
 
 async function startApp() {
+  await sessionStore.sync();
   await syncDb();
   createApp();
   startListening();
