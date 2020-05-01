@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: path.join(__dirname, 'app.js'),
+  entry: path.join(__dirname, 'client/index.js'),
   module: {
     rules: [
       {
@@ -22,7 +22,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['*', '.js'],
   },
   output: {
     path: path.join(__dirname, 'public'),
