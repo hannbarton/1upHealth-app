@@ -34,6 +34,13 @@ app.get('/', (req, res, next) => {
   }
 });
 
+// error handling endware
+app.use((err, req, res) => {
+  console.error(err);
+  console.error(err.stack);
+  res.status(err.status || 500).send(err.message || `${err.status}: Internal server error.`);
+});
+
 // app.get('/login', authenticate);
 
 app.listen(3000, () => console.log('App listening on port 3000!'));
