@@ -31,7 +31,7 @@ module.exports = {
     }, options);
 
     return rp(opts)
-      .then((response) => JSON.parse(response.body))
+      .then((response) => response.body)
       .catch((err) => {
         console.log('REQUEST ERROR', method, url, err.response);
         throw err;

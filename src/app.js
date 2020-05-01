@@ -107,9 +107,11 @@ const createApp = () => {
 
   app.get('/', authenticate);
 
-  app.get('/login', (req, res, next) => {
+  app.get('/login', authenticate, async (req, res, next) => {
     try {
-      res.send(req.body);
+      const { accessToken } = req;
+      const user = await User.findOrCreate({ where: { username: '9888', accessToken } });
+      req.login(user);
     } catch (err) {
       next(err);
     }

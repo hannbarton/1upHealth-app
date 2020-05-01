@@ -5,7 +5,6 @@ const { request } = require('../utils/request');
 const authenticate = async (req, res, next) => {
   try {
     // assuming user exists, generate access-code for this user
-
     const response = await request('POST', 'user-management/v1/user', 'auth-code',
       stringify(
         {
@@ -16,8 +15,7 @@ const authenticate = async (req, res, next) => {
       ));
     // exchange access-code for access token
     const { code } = response;
-    console.log('next step', code);
-    const { access_token: accessToken } = await request('POST', 'fhir/oauth', 'token',
+    const { access_token: accessToken } = await request('POST', 'fhir/oauth2', 'token',
       stringify(
         {
           client_id: process.env.CLIENT_ID,
@@ -26,8 +24,7 @@ const authenticate = async (req, res, next) => {
           grant_type: 'authorization_code',
         },
       ));
-    // save access token in the database
-    console.log(accessToken);
+    req.accessToken = accessToken;
     return next();
   } catch (err) {
     console.log(err);
