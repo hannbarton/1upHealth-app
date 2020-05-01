@@ -1,16 +1,15 @@
 {
-  "name": "app",
+  "name": "oneuphealth",
   "version": "1.0.0",
   "description": "coding challenge for 1upHealth",
   "main": "index.js",
   "scripts": {
-    "seed": "node script/seed.js",
-    "start": "nodemon --exec babel-node server.js",
+    "start": "node src/app.js",
     "build-client": "webpack",
     "build-client-watch": "webpack -w",
     "deploy": "script/deploy",
     "start-dev": "NODE_ENV='development' npm run build-client-watch & NODE_ENV='development' npm run start-server",
-    "start-server": "nodemon server -e html,js,scss --ignore public --ignore client"
+    "start-server": "nodemon src/app.js -e html,js,scss --ignore public --ignore client"
   },
   "keywords": [],
   "author": "Hannah Barton",
@@ -36,7 +35,6 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
