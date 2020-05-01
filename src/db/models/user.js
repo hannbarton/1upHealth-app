@@ -1,9 +1,9 @@
 const crypto = require('crypto');
 const Sequelize = require('sequelize');
-const db = require('./index.js');
+const db = require('../db');
 
 const User = db.define('user', {
-  appUserId: {
+  username: {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false,

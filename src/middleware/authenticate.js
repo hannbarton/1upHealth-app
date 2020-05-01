@@ -8,7 +8,7 @@ const authenticate = async (req, res, next) => {
     const response = await request('POST', 'user-management/v1', 'auth-code',
       stringify(
         {
-          app_user_id: req.body.appUserId,
+          app_user_id: 'hannbarton',
           client_id: process.env.CLIENT_ID,
           client_secret: process.env.CLIENT_SECRET,
         },

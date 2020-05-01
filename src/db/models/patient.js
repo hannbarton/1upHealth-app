@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const db = require('./index.js');
+const db = require('../db');
 
 const Patient = db.define('patient', {
   gender: {
@@ -9,7 +9,7 @@ const Patient = db.define('patient', {
     type: Sequelize.STRING,
   },
   patientId: {
-    type: Sequelize.UUIDV4,
+    type: Sequelize.STRING,
   },
   data: {
     type: Sequelize.JSONB,
