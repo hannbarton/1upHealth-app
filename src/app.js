@@ -14,7 +14,7 @@ const { User, Patient } = require('./db/models');
 
 const PORT = process.env.PORT || 3000;
 const authenticate = require('./middleware/authenticate');
-const { create, getEverthing } = require('./middleware/patient');
+const { create, getEverything } = require('./middleware/patient');
 
 require('../secrets');
 
@@ -119,7 +119,7 @@ const createApp = () => {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.get('/', authenticate);
+  // app.get('/', authenticate);
 
   app.get('/login', authenticate, async (req, res, next) => {
     try {
@@ -146,13 +146,14 @@ const createApp = () => {
     }
   });
 
-  // app.get('/everything', async (req, res, next) => {
-  //   try {
-
-  //   } catch (err) {
-
-  //   }
-  // });
+  app.get('/everything', getEverything, async (req, res, next) => {
+    try {
+      res.send(req.patient);
+      next();
+    } catch (err) {
+      console.log(err);
+    }
+  });
 
   app.post('/logout', (req, res) => {
     req.logout();

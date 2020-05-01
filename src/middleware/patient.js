@@ -27,10 +27,11 @@ const getEverything = async (req, res, next) => {
     const options = {
       bearerToken: user.accessBearerToken,
     };
-    const { patientId } = req;
+    // const { patientId } = req;
+    const patientId = '4842f1a242fe';
     const qs = '$everything';
 
-    const response = await request('POST', 'fhir/dstu2/Patient', patientId, qs, options);
+    const response = await request('GET', 'fhir/dstu2/Patient', patientId, qs, options);
     req.patient = response;
     return next();
   } catch (err) {
