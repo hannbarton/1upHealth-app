@@ -10,10 +10,11 @@ const morgan = require('morgan');
 const db = require('./db');
 
 const sessionStore = new SequelizeStore({ db });
-const { User } = require('./db/models');
+const { User, Patient } = require('./db/models');
 
 const PORT = process.env.PORT || 3000;
 const authenticate = require('./middleware/authenticate');
+const { create, getEverthing } = require('./middleware/patient');
 
 require('../secrets');
 
@@ -109,26 +110,34 @@ const createApp = () => {
 
   app.get('/login', authenticate, async (req, res, next) => {
     try {
-      const { accessToken } = req;
-      const user = await User.findOrCreate({ where: { username: '9888', accessToken } });
-      req.login(user);
-    } catch (err) {
-      next(err);
-    }
-  });
-
-  app.post('/signup', async (req, res, next) => {
-    try {
-      const user = await User.create(req.body);
+      const { accessBearerToken } = req;
+      const user = await User.findOrCreate({ where: { username: '98y8', accessBearerToken } });
       req.login(user, (err) => (err ? next(err) : res.json(user)));
     } catch (err) {
-      if (err.name === 'Unique Constraint Error') {
+      if (err.name === 'SequelizeUniqueConstraintError') {
         res.status(401).send('Username already exists');
       } else {
         next(err);
       }
     }
   });
+
+  app.get('/create', create, async (req, res, next) => {
+    try {
+      const { id, gender } = req.patient;
+      Patient.create({ where: { id, gender } });
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // app.get('/everything', async (req, res, next) => {
+  //   try {
+
+  //   } catch (err) {
+
+  //   }
+  // });
 
   app.post('/logout', (req, res) => {
     req.logout();

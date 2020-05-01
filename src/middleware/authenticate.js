@@ -15,7 +15,7 @@ const authenticate = async (req, res, next) => {
       ));
     // exchange access-code for access token
     const { code } = response;
-    const { access_token: accessToken } = await request('POST', 'fhir/oauth2', 'token',
+    const { access_token: accessBearerToken } = await request('POST', 'fhir/oauth2', 'token',
       stringify(
         {
           client_id: process.env.CLIENT_ID,
@@ -24,7 +24,7 @@ const authenticate = async (req, res, next) => {
           grant_type: 'authorization_code',
         },
       ));
-    req.accessToken = accessToken;
+    req.accessBearerToken = accessBearerToken;
     return next();
   } catch (err) {
     console.log(err);

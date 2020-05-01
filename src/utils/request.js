@@ -5,6 +5,7 @@ module.exports = {
   async request(method, resource, path, qs, options = {}) {
     let url = `${process.env.BASE_URL}/${resource}`;
     const headers = {};
+    let body = {};
 
     if (path.length) {
       url += `/${path}`;
@@ -14,12 +15,13 @@ module.exports = {
       headers.Authorization = `Bearer ${process.env.ACCESS_BEARER_TOKEN}`;
     }
 
+    if (options.body) {
+      body = options.body;
+    }
+
     if (qs.length) {
       url += `?${qs}`;
     }
-
-    const body = {
-    };
 
     const opts = _.merge({
       method,
