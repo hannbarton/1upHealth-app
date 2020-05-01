@@ -12,7 +12,7 @@ module.exports = {
     }
 
     if (options.bearerToken) {
-      headers.Authorization = `Bearer ${process.env.ACCESS_BEARER_TOKEN}`;
+      headers.Authorization = `Bearer ${options.bearerToken}`;
     }
 
     if (options.body) {

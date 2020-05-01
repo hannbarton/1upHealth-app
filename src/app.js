@@ -73,13 +73,13 @@ passport.use(
       passwordField: 'password',
       passReqToCallback: true,
     },
-    (async (req, email, password, done) => {
+    (async (req, username, password, done) => {
       // find a user whose username is the same as the forms username
       // we are checking to see if the user trying to login already exists
       await db.models.user.findOne(
         {
           where: {
-            email,
+            username,
           },
         },
         (err, user) => {
@@ -106,13 +106,28 @@ const createApp = () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
+  // session middleware with passport
+  app.use(
+    session({
+      secret: 'secret',
+      store: sessionStore,
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   app.get('/', authenticate);
 
   app.get('/login', authenticate, async (req, res, next) => {
     try {
       const { accessBearerToken } = req;
-      const user = await User.findOrCreate({ where: { username: '98y8', accessBearerToken } });
+      const user = await User.findOrCreate({ where: { username: 'hannah' } });
+      User.update({ accessBearerToken }, { where: { id: user[0].id } });
       req.login(user, (err) => (err ? next(err) : res.json(user)));
+      res.send({ accessBearerToken });
     } catch (err) {
       if (err.name === 'SequelizeUniqueConstraintError') {
         res.status(401).send('Username already exists');
@@ -125,7 +140,7 @@ const createApp = () => {
   app.get('/create', create, async (req, res, next) => {
     try {
       const { id, gender } = req.patient;
-      Patient.create({ where: { id, gender } });
+      Patient.create({ patientId: id, gender });
     } catch (err) {
       next(err);
     }
@@ -143,6 +158,10 @@ const createApp = () => {
     req.logout();
     req.session.destroy();
     res.redirect('/');
+  });
+
+  app.get('/me', (req, res) => {
+    res.json(req.user || {});
   });
 
   // static file-serving middleware
