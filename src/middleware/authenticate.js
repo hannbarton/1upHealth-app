@@ -1,11 +1,12 @@
 const { stringify } = require('querystring');
 
-const request = '../utils/request.js';
+const { request } = require('../utils/request');
 
 const authenticate = async (req, res, next) => {
   try {
-    // assuming user exists, generate auth-code for this user
-    const response = await request('POST', 'user-management/v1', 'auth-code',
+    // assuming user exists, generate access-code for this user
+
+    const response = await request('POST', 'user-management/v1/user', 'auth-code',
       stringify(
         {
           app_user_id: 'hannbarton',
@@ -13,8 +14,9 @@ const authenticate = async (req, res, next) => {
           client_secret: process.env.CLIENT_SECRET,
         },
       ));
-    // exchange auth-code for access token
+    // exchange access-code for access token
     const { code } = response;
+    console.log('next step', code);
     const { access_token: accessToken } = await request('POST', 'fhir/oauth', 'token',
       stringify(
         {

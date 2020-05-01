@@ -15,6 +15,8 @@ const { User } = require('./db/models');
 const PORT = process.env.PORT || 3000;
 const authenticate = require('./middleware/authenticate');
 
+require('../secrets');
+
 // serialize User
 passport.serializeUser((user, done) => {
   done(null, user.id);
