@@ -1,36 +1,40 @@
 const rp = require('request-promise');
 const _ = require('lodash');
 
+module.exports = {
+  async request(method, resource, path, qs, options = {}) {
+    let url = `${process.env.BASE_URL}/${resource}`;
+    const headers = {};
 
-const request = async (method, resource, path, qs, options = {}) => {
-  let uri = `${process.env.BASE_URL}/${resource}`;
+    if (path.length) {
+      url += `/${path}`;
+    }
 
-  if (path.length) {
-    uri += `/${path}`;
-  }
+    if (options.bearerToken) {
+      headers.Authorization = `Bearer ${process.env.ACCESS_BEARER_TOKEN}`;
+    }
 
-  const headers = {
-    Authorization: `Bearer ${process.env.ACCESS_BEARER_TOKEN}`,
-  };
+    if (qs.length) {
+      url += `?${qs}`;
+    }
 
-  if (qs.length) {
-    uri += `?${qs}`;
-  }
+    const body = {
+    };
 
-  const opts = _.merge({
-    method,
-    uri,
-    json: true,
-    headers,
-  }, options);
+    const opts = _.merge({
+      method,
+      uri: url,
+      resolveWithFullResponse: true,
+      body,
+      json: true,
+      headers,
+    }, options);
 
-  return rp(opts)
-    .then((res) => {
-      console.log(JSON.parse(res));
-    })
-    .catch((err) => {
-      console.log(`There was an error making the api request: ${err}`, method, uri, options);
-    });
+    return rp(opts)
+      .then((response) => JSON.parse(response.body))
+      .catch((err) => {
+        console.log('REQUEST ERROR', method, url, err.response);
+        throw err;
+      });
+  },
 };
-
-module.exports = request;
