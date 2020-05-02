@@ -4,6 +4,9 @@
   "description": "coding challenge for 1upHealth",
   "private": true,
   "main": "index.js",
+  "engines": {
+    "node": "8.11.3"
+  },
   "scripts": {
     "start": "node src/index.js",
     "postinstall": "touch secrets.js",
