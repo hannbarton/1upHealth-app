@@ -42,7 +42,7 @@ const createApp = () => {
     }
   });
 
-  app.get('/create', create, async (req, res, next) => {
+  app.post('/api/create', create, async (req, res, next) => {
     try {
       const { id, gender } = req.patient;
       Patient.create({ patientId: id, gender });
@@ -51,7 +51,7 @@ const createApp = () => {
     }
   });
 
-  app.get('/everything', getEverything, async (req, res, next) => {
+  app.get('/api/everything', getEverything, async (req, res, next) => {
     try {
       res.send(req.patient);
       next();

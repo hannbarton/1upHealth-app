@@ -1,14 +1,16 @@
+/* eslint-disable no-alert */
 import React from 'react';
 import axios from 'axios';
 
-class LoginForm extends React.Component {
+class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: '',
-      accessBearerToken: '',
+      id: "",
+      gender: ""
     };
     this.handleChange = this.handleChange.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -23,38 +25,47 @@ class LoginForm extends React.Component {
     event.preventDefault();
 
     const user = {
-      username: this.state.username,
+      id: this.state.id,
+      gender: this.state.gender,
     };
 
-    const defaultUser = {};
+    const defaultUser = {
+    };
 
-    if (user.username === '') {
-      alert('please enter a username');
+    if (user.id === '' || user.gender === '') {
+      alert('please enter a name and gender');
     } else {
-      axios.post('/api/login', user || defaultUser)
+      debugger;
+      axios.post('/api/create', user || defaultUser)
         .then((res) => {
-          this.state.accessBearerToken = res.accessBearerToken
-          console.log(res.data);
-          window.location = `https://api.1up.health/connect/system/clinical/4706?client_id=${process.env.APP_CLIENT_ID}&access_token=${res.accessBearerToken}`;
+          console.log(res)
         }).catch((err) => {
           alert(`Oops something went wrong ${err}`);
-          window.location = '/';
+          window.location = '/home';
         });
     }
   }
 
   render() {
-    const { username } = this.state;
+    const { id, gender } = this.state;
     return (
       <div className="login">
-        <h2>Sign in</h2>
+        <h2>Create Patient</h2>
         <form id="login-form" onSubmit={this.handleSubmit}>
           <input
             type="text"
-            name="username"
+            name="id"
             onChange={this.handleChange}
-            value={username}
-            placeholder="enter your username"
+            value={id}
+            placeholder="enter identifier like name or uuid"
+          />
+          <br />
+          <input
+            type="text"
+            name="gender"
+            onChange={this.handleChange}
+            value={gender}
+            placeholder="enter gender"
           />
           <br />
           <button
@@ -70,4 +81,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+export default Home;
