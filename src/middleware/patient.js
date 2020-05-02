@@ -3,7 +3,7 @@ const { User } = require('../db/models');
 
 const create = async (req, res, next) => {
   try {
-    let username = sessionStorage.getItem('user')
+    const { username } = req.body;
     const user = await User.findOne({ where: { username } });
     const options = {
       body: {
@@ -24,21 +24,19 @@ const create = async (req, res, next) => {
 
 const getEverything = async (req, res, next) => {
   try {
-    let username = sessionStorage.getItem('user')
+    const { username, patientId } = req.body;
     const user = await User.findOne({ where: { username } });
     const options = {
       bearerToken: user.accessBearerToken,
     };
-    const { patientId } = req;
-    // const patientId = '4842f1a242fe';
     const qs = '$everything';
 
     const response = await request('GET', 'fhir/dstu2/Patient', patientId, qs, options);
-    req.patient = response;
+    res.send({ response });
     return next();
   } catch (err) {
     console.log(err);
-    return res.status(400).send({ error: 'Patient creation was not successful' });
+    return res.status(400).send({ error: `Oops, could not get patient information ${err} ` });
   }
 };
 

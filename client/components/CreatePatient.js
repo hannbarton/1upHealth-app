@@ -2,7 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 
-class Home extends React.Component {
+class CreatePatient extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -23,10 +23,13 @@ class Home extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    let username = localStorage.getItem('user');
+
     const { id, gender } = this.state;
     const user = {
       id,
       gender,
+      username,
     };
 
     const defaultUser = {};
@@ -79,4 +82,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default CreatePatient;

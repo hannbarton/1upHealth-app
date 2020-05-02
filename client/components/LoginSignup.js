@@ -3,13 +3,13 @@ import LoginForm from './LoginForm';
 
 class LoginSignup extends React.Component {
   render() {
-      return (
-          <div className='main-container'>
-            <div className='login-signup-container'>
-                <LoginForm/>
-            </div>
-          </div>
-      )
+    return (
+      <div className="main-container">
+        <div className="login-signup-container">
+          <LoginForm />
+        </div>
+      </div>
+    );
   }
 }
 

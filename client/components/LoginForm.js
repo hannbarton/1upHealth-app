@@ -9,14 +9,16 @@ class LoginForm extends React.Component {
     super(props);
     this.state = {
       username: '',
-      // accessBearerToken: '',
+      accessBearerToken: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async componentDidMount() {
-    await this.props.setMainUser(this.state.username)
+    const { username } = this.state;
+    console.log(username);
+    setMainUser(username);
   }
 
   handleChange(event) {
@@ -29,8 +31,9 @@ class LoginForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    const { username, accessBearerToken } = this.state;
     const user = {
-      username: this.state.username,
+      username,
     };
 
     const defaultUser = {};
@@ -40,8 +43,10 @@ class LoginForm extends React.Component {
     } else {
       axios.post('/api/login', user || defaultUser)
         .then((res) => {
-          // this.setState({ accessBearerToken: res.accessBearerToken });
-          window.location = `https://api.1up.health/connect/system/clinical/4706?client_id=${process.env.APP_CLIENT_ID}&access_token=${res.accessBearerToken}`;
+          this.setState({ accessBearerToken: res.accessBearerToken });
+          localStorage.setItem('user', username);
+          // window.location = `https://api.1up.health/connect/system/clinical/4706?client_id=${process.env.APP_CLIENT_ID}&access_token=${res.accessBearerToken}`;
+          window.location = '/home';
         })
         .catch((err) => {
           alert(`Oops something went wrong ${err}`);
@@ -78,11 +83,11 @@ class LoginForm extends React.Component {
 }
 
 const mapState = (state) => ({
-  user: state.user,
+  user: state.username,
 });
 
 const mapDispatch = (dispatch) => ({
-  setMainUser: () => dispatch(setMainUser()),
+  setMainUser: (user) => dispatch(setMainUser(user)),
 });
 
 export default withRouter(

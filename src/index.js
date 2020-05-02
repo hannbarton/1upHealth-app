@@ -50,10 +50,9 @@ const createApp = () => {
     }
   });
 
-  app.get('/api/everything', getEverything, async (req, res, next) => {
+  app.post('/api/everything', getEverything, async (req, res, next) => {
     try {
-      res.send(req.patient);
-      next();
+      return res;
     } catch (err) {
       console.log(err);
     }
