@@ -6,11 +6,10 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      id: "",
-      gender: ""
+      id: '',
+      gender: '',
     };
     this.handleChange = this.handleChange.bind(this);
-
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -24,20 +23,20 @@ class Home extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    const { id, gender } = this.state;
     const user = {
-      id: this.state.id,
-      gender: this.state.gender,
+      id,
+      gender,
     };
 
-    const defaultUser = {
-    };
+    const defaultUser = {};
 
     if (user.id === '' || user.gender === '') {
       alert('please enter a name and gender');
     } else {
       axios.post('/api/create', user || defaultUser)
         .then((res) => {
-          console.log(res)
+          console.log(res);
         }).catch((err) => {
           alert(`Oops something went wrong ${err}`);
           window.location = '/home';
