@@ -1,0 +1,257 @@
+a {
+  text-decoration: none;
+  outline: none;
+}
+
+.main-container {
+  display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+font-family: 'Montserrat', sans-serif;
+height: 90vh;
+margin: 0px 50px;
+}
+
+.article-container {
+  background-color: rgb(165, 194, 212);
+  width: 500px;
+  text-align: left;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 5px;
+  font-size: 10pt;
+  display: inline-block;
+  margin: .5em;
+  padding: .1em 1em 2em 1em;
+}
+
+h2 {
+font-size: 30pt;
+}
+
+h1 {
+  color: rgb(50, 122, 204);
+  font-size: 42pt;
+}
+
+h5 {
+  color: white;
+  font-size: 28pt;
+  padding-bottom: 1px;
+}
+
+.saved-mini-container {
+  text-align: left
+}
+
+h6 {
+  font-size: 12pt;
+  text-align: center;
+  color: black
+}
+
+.logout {
+ position:absolute;
+ right:10px;
+ top: 5px;
+ border-radius: 5px;
+ margin: 5px;
+ border: 1px solid white;
+ background-color: rgb(50, 122, 204);
+ color: white;
+ font-size: 12px;
+ font-weight: bold;
+ padding: 8px 20px;
+ letter-spacing: 1px;
+ text-transform: uppercase;
+ transition: transform 80ms ease-in;
+}
+
+p {
+  font-size: 16pt;
+  text-align: center;
+  color: orange;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+}
+
+span {
+  display: block;
+}
+
+.center-button {
+  text-align: center;
+}
+
+a:link:hover {
+  color: yellow
+}
+
+a:visited {
+  color: yellow
+}
+
+.saved-container {
+justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  display: table-cell;
+}
+
+.saved {
+  font-size: 10pt;
+  background-color: orange;
+  width: 500px;
+  color: white;
+  padding: .1em 1em 1px 1em;
+  border-radius: 5px;
+}
+
+.saved-inner {
+  padding: 1em;
+}
+
+.heading {
+  background-color: rgb(165, 194, 212);
+  width: 500px;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 5px;
+  font-size: 32pt;
+  display: inline-block;
+  padding: 0 .3em .6em .3em;
+}
+
+h4 {
+  color: white;
+  font-size: 32pt;
+  padding: 0em .1em 0em .1em;
+}
+
+.saved-article-container {
+  text-align: center;
+  display: table;
+  margin: 0 auto;
+}
+
+article {
+  font-size: 10pt;
+  width: 500px;
+  color: white;
+  border-radius: 5px;
+}
+
+a:link {
+  color: #0074D9
+}
+
+.open-button {
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 5px;
+  margin: 10px;
+border: 1px solid orange;
+background-color: white;
+color: orange;
+font-size: 12px;
+font-weight: bold;
+  padding: 12px 15px;
+letter-spacing: 1px;
+text-transform: uppercase;
+transition: transform 80ms ease-in;
+}
+
+.login-signup-container {
+  background-color: #FFFFFF;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+height: 90%;
+  text-align: center;
+  display: table;
+}
+
+.login {
+  border: 3px solid orange;
+  display: table-cell;
+  text-align: center;
+  color: orange;
+  margin: auto;
+  background: white;
+  vertical-align: middle;
+  width: 40vw;
+  height: 80vh;
+  border-radius: 25px;
+}
+
+.saved-button {
+  position:relative;
+  right:10px;
+  top: 5px;
+  border-radius: 5px;
+  margin: 5px;
+  border: 1px solid white;
+  background-color: rgb(165, 194, 212);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 8px 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+}
+
+nav {
+  color: black
+}
+
+.sign-up{
+  display: table-cell;
+  text-align: center;
+  margin: auto;
+  background: orange;
+  vertical-align: middle;
+  width: 40vw;
+  height: 80vh;
+  border-radius: 25px;
+}
+
+#sign-up-button {
+  border-radius: 20px;
+  margin: 10px;
+border: 1px solid white;
+background-color: rgb(50, 122, 204);
+color: white;
+font-size: 12px;
+font-weight: bold;
+padding: 12px 45px;
+letter-spacing: 1px;
+text-transform: uppercase;
+transition: transform 80ms ease-in;
+}
+
+#sign-up-button:hover {
+  background-color: white;
+  color: orange
+}
+
+#login-button {
+  border-radius: 20px;
+  margin: 10px;
+border: 1px solid orange;
+background-color: white;
+color: orange;
+font-size: 12px;
+font-weight: bold;
+padding: 12px 45px;
+letter-spacing: 1px;
+text-transform: uppercase;
+transition: transform 80ms ease-in;
+}
+
+input {
+  background-color: #eee;
+border: none;
+padding: 12px 15px;
+margin: 8px 0;
+  width: 55%;
+  color: black
+}
