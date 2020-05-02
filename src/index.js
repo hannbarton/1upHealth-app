@@ -41,6 +41,12 @@ const createApp = () => {
     }
   });
 
+  app.post('/api/me', async (req, res, next) => {
+    const { username } = req;
+    const user = await User.findOrCreate({ where: { username } });
+    return user.accessBearerToken;
+  });
+
   app.post('/api/create', create, (req, res, next) => {
     try {
       const { id, gender } = req.patient;

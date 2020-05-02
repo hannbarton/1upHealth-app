@@ -43,10 +43,12 @@ class LoginForm extends React.Component {
     } else {
       axios.post('/api/login', user || defaultUser)
         .then((res) => {
-          this.setState({ accessBearerToken: res.accessBearerToken });
-          localStorage.setItem('user', username);
-          // window.location = `https://api.1up.health/connect/system/clinical/4706?client_id=${process.env.APP_CLIENT_ID}&access_token=${res.accessBearerToken}`;
-          window.location = '/home';
+          this.setState({
+            accessBearerToken: res.data.accessBearerToken,
+            username: res.data.username,
+          });
+          localStorage.setItem('user', res.data.username);
+          window.location = `https://quick.1up.health/connect/4706?access_token=${res.data.accessBearerToken}`;
         })
         .catch((err) => {
           alert(`Oops something went wrong ${err}`);
