@@ -45,8 +45,6 @@
     "express-session": "^1.17.1",
     "lodash": "^4.17.15",
     "morgan": "^1.10.0",
-    "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
     "pg": "^8.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

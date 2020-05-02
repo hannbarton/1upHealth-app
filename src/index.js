@@ -2,7 +2,6 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
@@ -18,86 +17,6 @@ const { create, getEverything } = require('./middleware/patient');
 
 require('../secrets');
 
-// serialize User
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-// deserialize User
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await db.models.user.findByPk(id);
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
-
-passport.use(
-  'local-login',
-  new LocalStrategy(
-    {
-      usernameField: 'username',
-      passwordField: 'password',
-      passReqToCallback: true,
-    },
-    (async (username, password, done) => {
-      await db.models.user.findOne(
-        {
-          where: {
-            username,
-          },
-        },
-        (err, user) => {
-          if (err) {
-            return done(err);
-          }
-          if (!user) {
-            return done(null, false, { message: 'Incorrect username.' });
-          }
-          if (!user.validPassword(password)) {
-            return done(null, false, { message: 'Incorrect password.' });
-          }
-          return done(null, user);
-        },
-      );
-    }),
-  ),
-);
-
-passport.use(
-  'local-signup',
-  new LocalStrategy(
-    {
-      usernameField: 'username',
-      passwordField: 'password',
-      passReqToCallback: true,
-    },
-    (async (req, username, password, done) => {
-      // find a user whose username is the same as the forms username
-      // we are checking to see if the user trying to login already exists
-      await db.models.user.findOne(
-        {
-          where: {
-            username,
-          },
-        },
-        (err, user) => {
-          // if there are any errors, return the error
-          if (err || !user) return done(err);
-
-          // check to see if theres already a user with that username
-          return done(
-            null,
-            false,
-            req.flash('signupMessage', 'That username is already taken.'),
-          );
-        },
-      );
-    }),
-  ),
-);
-
 const createApp = () => {
   // logging middleware
   app.use(morgan('dev'));
@@ -106,27 +25,13 @@ const createApp = () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  // session middleware with passport
-  app.use(
-    session({
-      secret: 'secret',
-      store: sessionStore,
-      resave: false,
-      saveUninitialized: false,
-    }),
-  );
-
-  app.use(passport.initialize());
-  app.use(passport.session());
-
   // app.get('/', authenticate);
 
-  app.get('/login', authenticate, async (req, res, next) => {
+  app.post('/api/login', authenticate, async (req, res, next) => {
     try {
-      const { accessBearerToken } = req;
-      const user = await User.findOrCreate({ where: { username: 'hannah' } });
+      const { accessBearerToken, username } = req;
+      const user = await User.findOrCreate({ where: { username } });
       User.update({ accessBearerToken }, { where: { id: user[0].id } });
-      req.login(user, (err) => (err ? next(err) : res.json(user)));
       res.send({ accessBearerToken });
     } catch (err) {
       if (err.name === 'SequelizeUniqueConstraintError') {
@@ -156,7 +61,6 @@ const createApp = () => {
   });
 
   app.post('/logout', (req, res) => {
-    req.logout();
     req.session.destroy();
     res.redirect('/');
   });

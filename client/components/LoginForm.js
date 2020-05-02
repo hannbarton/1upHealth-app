@@ -7,7 +7,7 @@ class LoginForm extends React.Component {
     super();
     this.state = {
       username: '',
-      password: '',
+      accessBearerToken: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,27 +25,27 @@ class LoginForm extends React.Component {
 
     const user = {
       username: this.state.username,
-      password: this.state.password,
     };
 
     const defaultUser = {};
 
-    if (user.email === '' || user.password === '') {
-      alert('please enter both username and password to login');
+    if (user.username === '') {
+      alert('please enter a username');
     } else {
-      axios.post('/api/users/login', user || defaultUser)
+      axios.post('/api/login', user || defaultUser)
         .then((res) => {
+          this.state.accessBearerToken = res.accessBearerToken
           console.log(res.data);
           window.location = '/home';
         }).catch((err) => {
-          alert(`incorrect username or password: ${err}`);
+          alert(`Oops something went wrong ${err}`);
           window.location = '/';
         });
     }
   }
 
   render() {
-    const { username, password } = this.state;
+    const { username } = this.state;
     return (
       <div className="login">
         <h2>Sign in</h2>
@@ -56,14 +56,6 @@ class LoginForm extends React.Component {
             onChange={this.handleChange}
             value={username}
             placeholder="enter your username"
-          />
-          <br />
-          <input
-            type="text"
-            name="password"
-            onChange={this.handleChange}
-            value={password}
-            placeholder="enter password"
           />
           <br />
           <button

@@ -6,10 +6,9 @@ class LoginSignup extends React.Component {
   render() {
       return (
           <div className='main-container'>
-          <div className='login-signup-container'>
-              <LoginForm/>
-              <SignupForm/>
-          </div>
+            <div className='login-signup-container'>
+                <LoginForm/>
+            </div>
           </div>
       )
   }

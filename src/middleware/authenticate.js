@@ -8,7 +8,7 @@ const authenticate = async (req, res, next) => {
     const response = await request('POST', 'user-management/v1/user', 'auth-code',
       stringify(
         {
-          app_user_id: 'hannbarton',
+          app_user_id: req.body.username,
           client_id: process.env.CLIENT_ID,
           client_secret: process.env.CLIENT_SECRET,
         },
@@ -25,6 +25,7 @@ const authenticate = async (req, res, next) => {
         },
       ));
     req.accessBearerToken = accessBearerToken;
+    req.username = req.body.username;
     return next();
   } catch (err) {
     console.log(err);
