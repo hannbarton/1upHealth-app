@@ -2,7 +2,6 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
 const morgan = require('morgan');
@@ -32,7 +31,7 @@ const createApp = () => {
       const { accessBearerToken, username } = req;
       const user = await User.findOrCreate({ where: { username } });
       User.update({ accessBearerToken }, { where: { id: user[0].id } });
-      res.send({ accessBearerToken });
+      res.send({ accessBearerToken, username });
     } catch (err) {
       if (err.name === 'SequelizeUniqueConstraintError') {
         res.status(401).send('Username already exists');

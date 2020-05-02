@@ -33,10 +33,10 @@ class LoginForm extends React.Component {
     } else {
       axios.post('/api/login', user || defaultUser)
         .then((res) => {
-          this.state.accessBearerToken = res.accessBearerToken
-          console.log(res.data);
+          this.state.accessBearerToken = res.accessBearerToken;
           window.location = `https://api.1up.health/connect/system/clinical/4706?client_id=${process.env.APP_CLIENT_ID}&access_token=${res.accessBearerToken}`;
-        }).catch((err) => {
+        })
+        .catch((err) => {
           alert(`Oops something went wrong ${err}`);
           window.location = '/';
         });

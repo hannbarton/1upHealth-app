@@ -3,7 +3,8 @@ const { User } = require('../db/models');
 
 const create = async (req, res, next) => {
   try {
-    const user = await User.findOne({ where: { username: req.body.id } });
+    let username = sessionStorage.getItem('user')
+    const user = await User.findOne({ where: { username } });
     const options = {
       body: {
         resourceType: 'Patient',
@@ -23,12 +24,13 @@ const create = async (req, res, next) => {
 
 const getEverything = async (req, res, next) => {
   try {
-    const user = await User.findOne({ where: { username: 'hannah' } });
+    let username = sessionStorage.getItem('user')
+    const user = await User.findOne({ where: { username } });
     const options = {
       bearerToken: user.accessBearerToken,
     };
-    // const { patientId } = req;
-    const patientId = '4842f1a242fe';
+    const { patientId } = req;
+    // const patientId = '4842f1a242fe';
     const qs = '$everything';
 
     const response = await request('GET', 'fhir/dstu2/Patient', patientId, qs, options);
