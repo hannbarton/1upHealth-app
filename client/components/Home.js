@@ -35,7 +35,6 @@ class Home extends React.Component {
     if (user.id === '' || user.gender === '') {
       alert('please enter a name and gender');
     } else {
-      debugger;
       axios.post('/api/create', user || defaultUser)
         .then((res) => {
           console.log(res)

@@ -65,10 +65,6 @@ const createApp = () => {
     res.redirect('/');
   });
 
-  app.get('/me', (req, res) => {
-    res.json(req.user || {});
-  });
-
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')));
 
