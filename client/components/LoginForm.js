@@ -1,24 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { setMainUser } from '../reducer';
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      accessBearerToken: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  async componentDidMount() {
-    const { username } = this.state;
-    console.log(username);
-    setMainUser(username);
   }
 
   handleChange(event) {
@@ -31,7 +21,7 @@ class LoginForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { username, accessBearerToken } = this.state;
+    const { username } = this.state;
     const user = {
       username,
     };
@@ -43,10 +33,6 @@ class LoginForm extends React.Component {
     } else {
       axios.post('/api/login', user || defaultUser)
         .then((res) => {
-          this.setState({
-            accessBearerToken: res.data.accessBearerToken,
-            username: res.data.username,
-          });
           localStorage.setItem('user', res.data.username);
           window.location = `https://quick.1up.health/connect/4706?access_token=${res.data.accessBearerToken}`;
         })
@@ -84,17 +70,4 @@ class LoginForm extends React.Component {
   }
 }
 
-const mapState = (state) => ({
-  user: state.username,
-});
-
-const mapDispatch = (dispatch) => ({
-  setMainUser: (user) => dispatch(setMainUser(user)),
-});
-
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch,
-  )(LoginForm),
-);
+export default LoginForm;

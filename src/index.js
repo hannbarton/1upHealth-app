@@ -11,10 +11,12 @@ const sessionStore = new SequelizeStore({ db });
 const { User, Patient } = require('./db/models');
 
 const PORT = process.env.PORT || 3000;
+
 const authenticate = require('./middleware/authenticate');
 const { create, getEverything } = require('./middleware/patient');
 
 require('../secrets');
+
 
 const createApp = () => {
   // logging middleware
@@ -23,8 +25,6 @@ const createApp = () => {
   // body parsing middleware
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-
-  // app.get('/', authenticate);
 
   app.post('/api/login', authenticate, async (req, res, next) => {
     try {
@@ -44,7 +44,8 @@ const createApp = () => {
   app.post('/api/me', async (req, res, next) => {
     const { username } = req;
     const user = await User.findOrCreate({ where: { username } });
-    return user.accessBearerToken;
+    const { accessBearerToken } = user;
+    return accessBearerToken;
   });
 
   app.post('/api/create', create, (req, res, next) => {
@@ -59,7 +60,8 @@ const createApp = () => {
 
   app.post('/api/everything', getEverything, (req, res, next) => {
     try {
-      res.send({ patient: req.patient });
+      const { patient } = req;
+      res.send({ patient });
     } catch (err) {
       next(err);
     }
