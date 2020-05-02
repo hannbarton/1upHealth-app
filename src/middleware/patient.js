@@ -32,7 +32,7 @@ const getEverything = async (req, res, next) => {
     const qs = '$everything';
 
     const response = await request('GET', 'fhir/dstu2/Patient', patientId, qs, options);
-    res.send({ response });
+    req.patient = response;
     return next();
   } catch (err) {
     console.log(err);

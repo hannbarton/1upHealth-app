@@ -37,7 +37,7 @@ class PatientList extends React.Component {
     } else {
       axios.post('/api/everything', user || defaultUser)
         .then((res) => {
-          const data = JSON.stringify(res.data.response);
+          const data = JSON.stringify(res.data.patient);
           this.setState({ patientData: data });
         }).catch((err) => {
           alert(`Oops something went wrong; this patient might not exist ${err}`);
@@ -67,9 +67,9 @@ class PatientList extends React.Component {
               submit
             </button>
           </form>
-          <p>
+          <div className="article-container">
             {patientData}
-          </p>
+          </div>
         </div>
         <div />
       </div>

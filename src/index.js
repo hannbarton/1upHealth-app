@@ -41,20 +41,21 @@ const createApp = () => {
     }
   });
 
-  app.post('/api/create', create, async (req, res, next) => {
+  app.post('/api/create', create, (req, res, next) => {
     try {
       const { id, gender } = req.patient;
       Patient.create({ patientId: id, gender });
+      res.send({ patient: req.body });
     } catch (err) {
       next(err);
     }
   });
 
-  app.post('/api/everything', getEverything, async (req, res, next) => {
+  app.post('/api/everything', getEverything, (req, res, next) => {
     try {
-      return res;
+      res.send({ patient: req.patient });
     } catch (err) {
-      console.log(err);
+      next(err);
     }
   });
 

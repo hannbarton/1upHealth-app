@@ -39,7 +39,7 @@ class CreatePatient extends React.Component {
     } else {
       axios.post('/api/create', user || defaultUser)
         .then((res) => {
-          console.log(res);
+          if (res) alert('patient successfully created');
         }).catch((err) => {
           alert(`Oops something went wrong ${err}`);
           window.location = '/home';
@@ -73,7 +73,7 @@ class CreatePatient extends React.Component {
             type="submit"
             id="login-button"
           >
-            Login
+            Create
           </button>
         </form>
       </div>
