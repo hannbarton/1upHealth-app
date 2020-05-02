@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-alert */
 import React from 'react';
 import axios from 'axios';
@@ -23,7 +24,7 @@ class CreatePatient extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    let username = localStorage.getItem('user');
+    const username = localStorage.getItem('user');
 
     const { id, gender } = this.state;
     const user = {

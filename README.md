@@ -17,7 +17,6 @@ This project was created using my own [boilerplate](https://github.com/hannbarto
     -d "app_user_id=myappsuserid"
 }
 
-
 4.) Create a postgresql database called `health` in your local postgresql database (port 5432)
 5.) `npm start`
 6.) http://localhost:3000

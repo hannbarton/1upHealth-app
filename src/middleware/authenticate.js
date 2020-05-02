@@ -1,5 +1,4 @@
 const { stringify } = require('querystring');
-
 const { request } = require('../utils/request');
 
 const authenticate = async (req, res, next) => {

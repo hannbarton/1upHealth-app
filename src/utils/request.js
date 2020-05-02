@@ -2,6 +2,15 @@ const rp = require('request-promise');
 const _ = require('lodash');
 
 module.exports = {
+
+  /**
+   * Generic request method that will make api requests for you
+   * @param {*} method - GET/POST/PUT/DELETE
+   * @param {*} resource - Patient
+   * @param {*} path - PatientId
+   * @param {*} qs - `$everything`
+   * @param {*} options - additonal options
+   */
   async request(method, resource, path, qs, options = {}) {
     let url = `${process.env.BASE_URL}/${resource}`;
     const headers = {};

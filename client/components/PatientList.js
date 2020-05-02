@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-alert */
 import React from 'react';
 import axios from 'axios';
 
@@ -33,6 +35,7 @@ class PatientList extends React.Component {
     const defaultUser = {};
 
     if (!user.patientId) {
+      // es
       alert('please enter patient identifier');
     } else {
       axios.post('/api/everything', user || defaultUser)

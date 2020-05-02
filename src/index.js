@@ -26,6 +26,7 @@ const createApp = () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
+  // api routes
   app.post('/api/login', authenticate, async (req, res, next) => {
     try {
       const { accessBearerToken, username } = req;
@@ -74,7 +75,11 @@ const createApp = () => {
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')));
+  app.use('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+  });
 
+  // error handling
   app.use((req, res, next) => {
     if (path.extname(req.path).length) {
       const err = new Error('Not found');
@@ -85,11 +90,6 @@ const createApp = () => {
     }
   });
 
-  app.use('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public/index.html'));
-  });
-
-  // error handling
   app.use((err, req, res) => {
     console.error(err);
     console.error(err.stack);
@@ -97,8 +97,10 @@ const createApp = () => {
   });
 };
 
+// sync database
 const syncDb = () => db.sync();
 
+// start up app
 const startListening = () => {
   app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`));
 };

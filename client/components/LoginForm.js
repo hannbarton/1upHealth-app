@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-alert */
 import React from 'react';
 import axios from 'axios';
 
@@ -37,7 +39,7 @@ class LoginForm extends React.Component {
           window.location = `https://quick.1up.health/connect/4706?access_token=${res.data.accessBearerToken}`;
         })
         .catch((err) => {
-          alert(`Oops something went wrong ${err}`);
+          alert(`Oops something went wrong: unable to login ${err}`);
           window.location = '/';
         });
     }
@@ -54,7 +56,7 @@ class LoginForm extends React.Component {
             name="username"
             onChange={this.handleChange}
             value={username}
-            placeholder="enter your username"
+            placeholder="enter your 1upHealth created app_user_id"
           />
           <br />
           <button
