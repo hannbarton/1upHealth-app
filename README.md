@@ -18,7 +18,11 @@ This project was created using my own [boilerplate](https://github.com/hannbarto
 }
 
 4.) Create a postgresql database called `health` in your local postgresql database (port 5432)
+
 5.) `npm start`
+
 6.) http://localhost:3000
+
 7.) login using your 1upHealth created user in step 3. For testing purposes, `hannbarton` is a valid username you can use to login
+
 8.) After oauth2, you will be navigated to `/home`. You must create a patient before querying for patient data.
