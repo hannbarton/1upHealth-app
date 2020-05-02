@@ -52,13 +52,15 @@ class CreatePatient extends React.Component {
     return (
       <div className="login">
         <h2>Create Patient</h2>
+        <h6>Create at least 1 Patient</h6>
+        <h6>Next, retrieve patient data using patient ID</h6>
         <form id="login-form" onSubmit={this.handleSubmit}>
           <input
             type="text"
             name="id"
             onChange={this.handleChange}
             value={id}
-            placeholder="enter identifier like name or uuid"
+            placeholder="Enter identifier like name or id. This is the patient ID"
           />
           <br />
           <input
@@ -66,7 +68,7 @@ class CreatePatient extends React.Component {
             name="gender"
             onChange={this.handleChange}
             value={gender}
-            placeholder="enter gender"
+            placeholder="Enter Gender"
           />
           <br />
           <button
